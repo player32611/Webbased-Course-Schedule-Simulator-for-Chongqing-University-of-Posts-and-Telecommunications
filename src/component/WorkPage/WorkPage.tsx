@@ -6,9 +6,12 @@ import WorkList from '../WorkList/WorkList'
 import WorkDetailPage from '../WorkDetailPage/WorkDetailPage'
 import { getCurrentWeekNumber, getWeekCharacter } from '../../utils/utils'
 import useWorkStore from '../../store/workStore'
+import useOthersStore from '../../store/othersStore'
 
-
-
+enum DEPENDS {
+    PERSONAL,
+    OTHERS
+}
 
 const semesterStartDate = new Date('2025-02-24')//开始日期
 const currentWeek = getCurrentWeekNumber(semesterStartDate)  // 计算当前周数
@@ -22,6 +25,7 @@ function ClassPage() {
   const [isSliding, setIsSliding] = useState(false)
   const [verticalTranslateY, setVerticalTranslateY] = useState(0)
   const [isVerticalSliding, setIsVerticalSliding] = useState(false)
+  const [isShowOthersWork, setIsShowOthersWork] = useState(false)
 
   const startX = useRef(0)
   const startY = useRef(0)
@@ -30,6 +34,7 @@ function ClassPage() {
   
   const weeks = getAllWeeks()
   const {setIsActive} = useWorkStore()
+  const {setOthersIsActive} = useOthersStore()
   
   const goToCurrentWeek = () => {
     setCurrentSlide(currentWeek === 0 ? 0 : currentWeek)// 如果当前周数超出范围（即为0），则跳转到整学期页面（索引0）// 否则跳转到对应的周数页面
@@ -38,7 +43,8 @@ function ClassPage() {
   useEffect(() => {
     goToCurrentWeek()
     setIsActive(false)
-  }, [setIsActive])// 组件挂载时自动跳转到当前周
+    setOthersIsActive(false)
+  }, [setIsActive,setOthersIsActive])// 组件挂载时自动跳转到当前周
   const isTouchInHead = (target: EventTarget | null) => {
     return target instanceof Element && headRef.current?.contains(target);
   }
@@ -156,7 +162,7 @@ function ClassPage() {
             <div className={`week-navigation ${currentSlide === currentWeek ? 'hidden' : 'visable'}`}>
               <button className="back-to-current" onClick={goToCurrentWeek}>回到本周</button>
             </div>
-            <div className='people'></div>
+            <div className={`people ${isShowOthersWork?'others':'personal'}`} onClick={()=>setIsShowOthersWork(!isShowOthersWork)}></div>
           </div>
         </div>
         <div className='body'>
@@ -178,15 +184,16 @@ function ClassPage() {
           {weeks.map((week, index) => (
             <div key={week} className="worklist-slide">
               {index === 0 ? (
-                <WorkList week={0}/> // 第一个滑动页为“整学期”
+                <WorkList week={0} showOthers={isShowOthersWork} /> // 第一个滑动页为“整学期”
               ) : (
-                <WorkList week={index} /> // 其余为正常周数
+                <WorkList week={index}  showOthers={isShowOthersWork}/> // 其余为正常周数
               )}
             </div>
           ))}
           </div>
         </div>
-        <WorkDetailPage/>
+        <WorkDetailPage depends={DEPENDS.PERSONAL}/>
+        <WorkDetailPage depends={DEPENDS.OTHERS}/>
       </div>
     </>
   )

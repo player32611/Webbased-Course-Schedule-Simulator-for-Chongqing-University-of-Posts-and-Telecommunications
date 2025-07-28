@@ -4,10 +4,12 @@ import './WorkList.less'
 import WorkItem from '../WorkItem/WorkItem';
 import EmptyItem from '../EmptyItem/EmptyItem';
 import useWorkStore from '../../store/workStore';
-import { getWeekDates,getMonth,getDay,getItemStyle } from '../../utils/utils';
+import useOthersStore from '../../store/othersStore';
+import { getWeekDates,getMonth,getDay,getItemStyle,getOthersItemStyle } from '../../utils/utils';
 
 interface WorkListProps {
   week: number
+  showOthers: boolean
 }
 
 interface ActiveEmptyItem {
@@ -17,45 +19,49 @@ interface ActiveEmptyItem {
 
 const startDate = new Date('2025-02-24')
 
-function ClassList({week}:WorkListProps) {
+function ClassList({week,showOthers}:WorkListProps) {
   const {works,setDayIndex,setActiveId,setIsActive} = useWorkStore()
+  const {othersWorks,setOthersDayIndex,setOthersActiveId,setOthersIsActive} = useOthersStore()
   let weekWork = null
+  let othersWeekWork = null
   let weekDates =  null
   let month = null // 使用周一的月份作为该周月份显示
   if(!week){
     weekWork = works
+    othersWeekWork = othersWorks
   }
   else{
     weekWork = works.filter(item => item.week.includes(week))
+    othersWeekWork = othersWorks.filter(item => item.week.includes(week))
     weekDates = getWeekDates(startDate, week || 1);
     month = getMonth(weekDates[0]); // 使用周一的月份作为该周月份显示
   }
   // 创建一个二维数组来表示每天每节课是否有安排
   const timeSlots = 12; // 假设有12个时间槽
   const days = 7; // 一周7天
-  
-  // 创建一个二维数组来跟踪哪些时间槽已被占用
-  const occupiedSlots: boolean[][] = Array(days).fill(null).map(() => Array(timeSlots).fill(false));
-
-  // 标记已被占用的时间槽
+  const occupiedSlots: boolean[][] = Array(days).fill(null).map(() => Array(timeSlots).fill(false))// 创建一个二维数组来跟踪哪些时间槽已被占用
   weekWork.forEach(item => {
     for (let i = 0; i < item.day.length; i++) {
       occupiedSlots[item.day[i]-1][item.startTime[i]-1] = true;
       occupiedSlots[item.day[i]-1][item.endTime[i]-1] = true;
     }
-  });
+  })// 标记已被占用的时间槽
+  if(showOthers){othersWeekWork.forEach(item => {
+    for (let i = 0; i < item.day.length; i++) {
+      occupiedSlots[item.day[i]-1][item.startTime[i]-1] = true;
+      occupiedSlots[item.day[i]-1][item.endTime[i]-1] = true;
+    }
+  })}
   const [activeEmptyItem, setActiveEmptyItem] = useState<ActiveEmptyItem | null>(null); // 添加状态管理
   const handleEmptyItemClick = (day: number, timeSlot: number) => {
     setActiveEmptyItem({ day, timeSlot });
   };
-  
-  // 处理点击外部区域关闭 EmptyItem
   const handleContainerClick = (e: React.MouseEvent) => {
     // 如果点击的不是 EmptyItem，则关闭所有激活的 EmptyItem
     if (!(e.target as Element).closest('.EmptyItem')) {
       setActiveEmptyItem(null);
     }
-  };
+  }// 处理点击外部区域关闭 EmptyItem
   const emptyItems = [];
   for (let day = 0; day < days; day++) {
     for (let timeSlot = 0; timeSlot < timeSlots; timeSlot++) {
@@ -119,6 +125,24 @@ function ClassList({week}:WorkListProps) {
             </div>
           ))
         ))}
+        {showOthers && othersWeekWork.map((work,index1) => (
+            work.day.map((item,index2)=>(
+              <div 
+              key={index1+'-'+index2} 
+              className='work-item' 
+              onClick={(e)=>{
+                e.stopPropagation(); // 阻止冒泡到容器
+                setOthersDayIndex(index2)
+                setOthersActiveId(work.id)
+                setOthersIsActive(true)
+              }}
+              style={getOthersItemStyle(item,work.startTime[index2],work.endTime[index2])}
+              >
+              <WorkItem id={work.id} name={work.name} place={work.place}/>
+            </div>
+            )) 
+          ))
+      }
       </div>
     </>
   );

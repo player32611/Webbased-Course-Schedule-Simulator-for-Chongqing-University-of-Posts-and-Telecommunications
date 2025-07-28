@@ -1,10 +1,8 @@
 import { create } from 'zustand'
 import { type Work,WORKTYPE } from '../apis/works';
-import { getWorkData } from '../apis/works'
 
 
 interface workState {
-    getData: () => Promise<void>;
     works: Work[];
     setWorks: (work: Work[]) => void;
     dayIndex: number;
@@ -15,21 +13,10 @@ interface workState {
     setIsActive: (isActive: boolean) => void;
 }
 
-const getData = async () => {
-    try {
-        console.log(useWorkStore.getState().works)
-        const res = await getWorkData({ id: 1 })
-        useWorkStore.setState({ works:res.data.data})
-        console.log(res.data.data)
-        //console.log(useWorkStore.getState().works)
-    } catch (error) {
-        console.log(error)
-    }
-}
+
 
 const useWorkStore = create<workState>(() => {
     return {
-        getData,
         works:[
             {
                 id: 1,

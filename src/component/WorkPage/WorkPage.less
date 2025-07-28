@@ -56,8 +56,14 @@
                 margin: @HEAD-HEIGHT*0.25 0;
                 height: @HEAD-HEIGHT*0.35;
                 width: @HEAD-HEIGHT*0.35;
-                background: url("../../icon/人数.png") no-repeat;
-                background-size: contain;
+                &.others{
+                    background: url('../../icon/多人.png') no-repeat center center;
+                    background-size: contain;
+                }
+                &.personal{
+                    background: url('../../icon/人数.png') no-repeat center center;
+                    background-size: contain;
+                }
             }
             .week-navigation{
                 float: right;

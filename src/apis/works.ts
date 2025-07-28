@@ -28,7 +28,7 @@ type Params = {
     id: number
 }
 
-export function getWorkData(params: Params) {
+export function getOthersWorkData(params: Params) {
     return httpInstance.request<ResType<Work>>({
         url: '/category',
         method: 'GET',

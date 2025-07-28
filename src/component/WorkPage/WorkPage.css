@@ -54,7 +54,13 @@
   margin: 2.5vh 0;
   height: 3.5vh;
   width: 3.5vh;
-  background: url("../../icon/人数.png") no-repeat;
+}
+.ClassPage .head .head-content .people.others {
+  background: url('../../icon/多人.png') no-repeat center center;
+  background-size: contain;
+}
+.ClassPage .head .head-content .people.personal {
+  background: url('../../icon/人数.png') no-repeat center center;
   background-size: contain;
 }
 .ClassPage .head .head-content .week-navigation {

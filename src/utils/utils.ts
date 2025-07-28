@@ -146,6 +146,14 @@ export const getItemStyle = (day:number,startTime:number,endTime:number,place:st
     }
   }
 }
+
+export const getOthersItemStyle = (day:number,startTime:number,endTime:number) =>{ 
+  return {
+      gridArea: `${startTime+1}/${day+1}/${endTime+2}/${day+2}`, 
+      backgroundColor: `#DFF3FC`,
+      color:`#2E97D0`
+    }
+}
 export const getTimeCharacters = (day: number,startTime: number,endTime: number)=>{
   if(startTime === endTime)return getDayCharacter(day)+' '+getClassCharacter(startTime)
   else return getDayCharacter(day)+' '+getClassCharacter(startTime)+'-'+getClassCharacter(endTime)
