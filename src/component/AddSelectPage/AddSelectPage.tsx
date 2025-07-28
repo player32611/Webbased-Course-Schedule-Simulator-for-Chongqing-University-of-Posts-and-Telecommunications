@@ -2,7 +2,7 @@ import { useState,useImperativeHandle,useRef,useEffect } from 'react'
 import type { Ref } from 'react'
 
 import './AddSelectPage.less'
-import { getWeekCharacter,getClassCharacter, getDayCharacter } from '../../utils/utils';
+import { getWeekCharacter,getClassCharacter, getDayCharacter,getRemindCharacter } from '../../utils/utils';
 import  useAddStore  from '../../store/addStore'
 
 export interface AddSelectPageRef {
@@ -25,50 +25,62 @@ enum SCROLLTYPE{
     DAYS,
     STARTTIMES,
     ENDTIMES,
+    REMINDS
 }
 
 const weeksMap = [...Array(22).keys()]
 const daysMap = [...Array(8).keys()].slice(1)
 const timesMap = [...Array(13).keys()].slice(1)
+const remindsMap = [...Array(6).keys()]
 
 function AddSelectPage({state,index,ref}:AddSelectPageProps) {
-    const {weeks,setWeeks,days,setDays,startTimes,setStartTimes,endTimes,setEndTimes} = useAddStore()
+    const {weeks,setWeeks,days,setDays,startTimes,setStartTimes,endTimes,setEndTimes,setRemind} = useAddStore()
     const [isActive, setIsActive] = useState<boolean>(false)
     const daysScrollRef = useRef<HTMLDivElement>(null);
     const startTimesScrollRef = useRef<HTMLDivElement>(null);
     const endTimesScrollRef = useRef<HTMLDivElement>(null);
+    const remindsScrollRef = useRef<HTMLDivElement>(null);
     const selectedDayRef = useRef<HTMLDivElement>(null);
     const selectedStartTimeRef = useRef<HTMLDivElement>(null);
     const selectedEndTimeRef = useRef<HTMLDivElement>(null);
+    const selectedRemindRef = useRef<HTMLDivElement>(null);
     const [currentDay,setCurrentDay] = useState(1)
     const [currentStartTime,setCurrentStartTime] = useState(0)
     const [currentEndTime,setCurrentEndTime] = useState(0)
+    const [currentRemind,setCurrentRemind] = useState(0)
     useImperativeHandle(ref,()=> ({
         setIsActive:(active: boolean) => setIsActive(active)
     }))
     useEffect(() => {
         if (state === PAGESTATE.TIMES && isActive) {
-        if (daysScrollRef.current && selectedDayRef.current) {// 初始化星期滚动位置
-            const container = daysScrollRef.current;
-            const selectedElement = selectedDayRef.current;
-            const containerHeight = container.clientHeight;
-            const selectedElementHeight = selectedElement.clientHeight;
-            container.scrollTop = selectedElement.offsetTop - containerHeight / 2 + selectedElementHeight / 2;
-        }
-        if (startTimesScrollRef.current && selectedStartTimeRef.current) {// 初始化开始时间滚动位置
-            const container = startTimesScrollRef.current;
-            const selectedElement = selectedStartTimeRef.current;
-            const containerHeight = container.clientHeight;
-            const selectedElementHeight = selectedElement.clientHeight;
-            container.scrollTop = selectedElement.offsetTop - containerHeight / 2 + selectedElementHeight / 2;
-        }
-        if (endTimesScrollRef.current && selectedEndTimeRef.current) {// 初始化结束时间滚动位置
-            const container = endTimesScrollRef.current;
-            const selectedElement = selectedEndTimeRef.current;
-            const containerHeight = container.clientHeight;
-            const selectedElementHeight = selectedElement.clientHeight;
-            container.scrollTop = selectedElement.offsetTop - containerHeight / 2 + selectedElementHeight / 2;
-        }
+            if (daysScrollRef.current && selectedDayRef.current) {// 初始化星期滚动位置
+                const container = daysScrollRef.current;
+                const selectedElement = selectedDayRef.current;
+                const containerHeight = container.clientHeight;
+                const selectedElementHeight = selectedElement.clientHeight;
+                container.scrollTop = selectedElement.offsetTop - containerHeight / 2 + selectedElementHeight / 2;
+            }
+            if (startTimesScrollRef.current && selectedStartTimeRef.current) {// 初始化开始时间滚动位置
+                const container = startTimesScrollRef.current;
+                const selectedElement = selectedStartTimeRef.current;
+                const containerHeight = container.clientHeight;
+                const selectedElementHeight = selectedElement.clientHeight;
+                container.scrollTop = selectedElement.offsetTop - containerHeight / 2 + selectedElementHeight / 2;
+            }
+            if (endTimesScrollRef.current && selectedEndTimeRef.current) {// 初始化结束时间滚动位置
+                const container = endTimesScrollRef.current;
+                const selectedElement = selectedEndTimeRef.current;
+                const containerHeight = container.clientHeight;
+                const selectedElementHeight = selectedElement.clientHeight;
+                container.scrollTop = selectedElement.offsetTop - containerHeight / 2 + selectedElementHeight / 2;
+            }
+            if(remindsScrollRef.current && selectedRemindRef.current){
+                const container = remindsScrollRef.current;
+                const selectedElement = selectedRemindRef.current;
+                const containerHeight = container.clientHeight;
+                const selectedElementHeight = selectedElement.clientHeight;
+                container.scrollTop = selectedElement.offsetTop - containerHeight / 2 + selectedElementHeight / 2;
+            }
         }
     }, [state, isActive, currentDay, currentStartTime, currentEndTime]);
     if(state === PAGESTATE.WEEKS){
@@ -93,49 +105,49 @@ function AddSelectPage({state,index,ref}:AddSelectPageProps) {
         </>
     )}
     if(state === PAGESTATE.TIMES){
-    const handleScroll = (type: SCROLLTYPE, container: HTMLDivElement) => {// 处理滚动事件
-        const scrollPosition = container.scrollTop + container.clientHeight / 2;
-        let closestElement: HTMLDivElement = null! as HTMLDivElement;
-        let minDistance = Infinity;
-        container.childNodes.forEach((node) => {
-        if (node instanceof HTMLDivElement && node.classList.contains('day-item')) {
-            const element = node;
-            const elementCenter = element.offsetTop + element.clientHeight / 2;
-            const distance = Math.abs(elementCenter - scrollPosition);
-            if (distance < minDistance) {
-                minDistance = distance;
-                closestElement = element;
-            }
-        }
-        });
-        if (closestElement) {
-            switch (type) {
-                case SCROLLTYPE.DAYS: {
-                    const dayValue = parseInt(closestElement.getAttribute('data-day') || '1');
-                    setCurrentDay(dayValue);
-                    break;
-                }
-                case SCROLLTYPE.STARTTIMES: {
-                    const startTimeValue = parseInt(closestElement.getAttribute('data-starttime') || '0');
-                    setCurrentStartTime(startTimeValue);
-                    if (currentEndTime < startTimeValue) {
-                        setCurrentEndTime(startTimeValue);
-                    }
-                    break;
-                }
-                case SCROLLTYPE.ENDTIMES: {
-                    const endTimeValue = parseInt(closestElement.getAttribute('data-endtime') || '0');
-                    if (endTimeValue >= currentStartTime) {
-                        setCurrentEndTime(endTimeValue);
-                    }
-                    break;
+        const handleScroll = (type: SCROLLTYPE, container: HTMLDivElement) => {// 处理滚动事件
+            const scrollPosition = container.scrollTop + container.clientHeight / 2;
+            let closestElement: HTMLDivElement = null! as HTMLDivElement;
+            let minDistance = Infinity;
+            container.childNodes.forEach((node) => {
+            if (node instanceof HTMLDivElement && node.classList.contains('day-item')) {
+                const element = node;
+                const elementCenter = element.offsetTop + element.clientHeight / 2;
+                const distance = Math.abs(elementCenter - scrollPosition);
+                if (distance < minDistance) {
+                    minDistance = distance;
+                    closestElement = element;
                 }
             }
-        }
-    };
-    const getValidEndTimes = () => {// 获取有效的结束时间选项（大于等于开始时间的选项）
-        return timesMap.filter(time => time >= currentStartTime);
-    };
+            });
+            if (closestElement) {
+                switch (type) {
+                    case SCROLLTYPE.DAYS: {
+                        const dayValue = parseInt(closestElement.getAttribute('data-day') || '1');
+                        setCurrentDay(dayValue);
+                        break;
+                    }
+                    case SCROLLTYPE.STARTTIMES: {
+                        const startTimeValue = parseInt(closestElement.getAttribute('data-starttime') || '0');
+                        setCurrentStartTime(startTimeValue);
+                        if (currentEndTime < startTimeValue) {
+                            setCurrentEndTime(startTimeValue);
+                        }
+                        break;
+                    }
+                    case SCROLLTYPE.ENDTIMES: {
+                        const endTimeValue = parseInt(closestElement.getAttribute('data-endtime') || '0');
+                        if (endTimeValue >= currentStartTime) {
+                            setCurrentEndTime(endTimeValue);
+                        }
+                        break;
+                    }
+                }
+            }
+        };
+        const getValidEndTimes = () => {// 获取有效的结束时间选项（大于等于开始时间的选项）
+            return timesMap.filter(time => time >= currentStartTime);
+        };
         return(
         <>
             <div className={`AddSelectPage-background ${isActive ? 'visable' : 'hidden'}`} onClick={()=>setIsActive(false)}></div>
@@ -192,8 +204,60 @@ function AddSelectPage({state,index,ref}:AddSelectPageProps) {
                     setIsActive(false)
                 }}>确定</div></div>
             </div>
-        </>
-    )}
+        </>)
+    }
+    if(state === PAGESTATE.REMINDS){
+        const handleScroll = (type: SCROLLTYPE, container: HTMLDivElement) => {// 处理滚动事件
+            const scrollPosition = container.scrollTop + container.clientHeight / 2;
+            let closestElement: HTMLDivElement = null! as HTMLDivElement;
+            let minDistance = Infinity;
+            container.childNodes.forEach((node) => {
+            if (node instanceof HTMLDivElement && node.classList.contains('remind-item')) {
+                const element = node;
+                const elementCenter = element.offsetTop + element.clientHeight / 2;
+                const distance = Math.abs(elementCenter - scrollPosition);
+                if (distance < minDistance) {
+                    minDistance = distance;
+                    closestElement = element;
+                }
+            }
+            });
+            if (closestElement) {
+                switch (type) {
+                    case SCROLLTYPE.REMINDS: {
+                        const remindValue = parseInt(closestElement.getAttribute('data-day') || '1');
+                        setCurrentRemind(remindValue);
+                        break;
+                    }
+                }
+            }
+        };
+        return (<>
+            <div className={`AddSelectPage-background ${isActive ? 'visable' : 'hidden'}`} onClick={()=>setIsActive(false)}></div>
+            <div className={`AddSelectPage ${isActive ? 'visable' : 'hidden'}`}>
+                <div className="time-selector">
+                    <div className="reminds-scroll-container" ref={remindsScrollRef} onScroll={(e)=>handleScroll(SCROLLTYPE.REMINDS, e.target as HTMLDivElement)}>
+                        <div className="empty-top"></div>
+                        {remindsMap.map((remind) => (
+                        <div key={remind}
+                        data-day={remind}
+                        ref={remind === currentRemind  ? selectedRemindRef : null}
+                        className={`remind-item ${remind === currentRemind ? 'selected' : ''}`}>
+                        {getRemindCharacter(remind)}</div>
+                        ))}
+                        <div className="empty-bottom"></div>
+                    </div>
+                </div>
+                <div className="selected-indicator"></div>
+                <div className='submit'><div className='button' onClick={()=>{
+                    if (index !== undefined) {
+                        setRemind(currentRemind);
+                    }
+                    setIsActive(false)
+                }}>确定</div></div>
+            </div>
+        </>)
+    }
 }
 
 export default AddSelectPage

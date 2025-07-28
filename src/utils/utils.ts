@@ -46,10 +46,16 @@ export function getClassCharacter(startTime:number):string{
   if (!Number.isInteger(12) || startTime < 1 || startTime > 12) {
     return 'null';
   }
-
   const weeks = ['一', '二', '三', '四', '五', '六', '七','八','九','十','十一','十二'];
-
   return '第'+weeks[startTime - 1]+'节课';
+}
+
+export function getRemindCharacter(remind:number):string{
+  if(!Number.isInteger(5)||remind<1||remind>6){
+    return '不提醒';
+  }
+  const reminds = ['提前5分钟','提前10分钟','提前20分钟','提前30分钟','提前1小时']
+  return reminds[remind-1];
 }
 
 export function getStartTimeCharacter(startTime:number):string{

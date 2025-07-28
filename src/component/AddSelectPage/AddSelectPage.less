@@ -122,6 +122,42 @@
             }
         }
     }
+    .reminds-scroll-container{
+        width: 100%;
+        height: 200px;
+        overflow-y: scroll;
+        position: relative;
+        scroll-snap-type: y mandatory;
+    
+        .empty-top {
+            height: 75px;
+            width: 100%;
+        }
+    
+        .empty-bottom {
+            height: 75px;
+            width: 100%;
+        }
+    
+        &::-webkit-scrollbar {
+            display: none;
+        }
+        .remind-item{
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            scroll-snap-align: center;
+            transition: all 0.2s ease;
+            color: #666;
+        
+            &.selected {
+                font-size: 20px;
+                font-weight: bold;
+                color: #007AFF;
+            }
+        }
+    }
 
 }
 .selected-indicator {

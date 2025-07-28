@@ -14,6 +14,8 @@ interface addState {
    setTitle: (title: string) => void;
    content: string;
    setContent: (content: string) => void;
+   remind: number;
+   setRemind: (remind: number) => void;
 }
 
 
@@ -46,7 +48,11 @@ const useAddStore = create<addState>(() => {
         content: '',
         setContent: (content: string) => {
             useAddStore.setState({ content })
-        }
+        },
+        remind:0,
+        setRemind: (remind: number) => {
+            useAddStore.setState({ remind })
+        },
     }
 })
 

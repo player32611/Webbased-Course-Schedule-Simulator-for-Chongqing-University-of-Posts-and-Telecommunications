@@ -2,7 +2,7 @@ import { useNavigate,useSearchParams } from 'react-router'
 import { useState,useRef, useEffect } from 'react'
 
 import './Add.less'
-import { getWeekCharacter,getTimeCharacters } from '../../utils/utils'
+import { getWeekCharacter,getTimeCharacters,getRemindCharacter } from '../../utils/utils'
 import AddSelectPage from '../../component/AddSelectPage/AddSelectPage'
 import type { AddSelectPageRef } from '../../component/AddSelectPage/AddSelectPage'
 import  useAddStore  from '../../store/addStore'
@@ -31,7 +31,7 @@ function Add(){
     const titleCompleteRef = useRef<HTMLDivElement>(null)
     const navigate = useNavigate()
     const [params] = useSearchParams()
-    const {weeks,setWeeks,days,setDays,startTimes,setStartTimes,endTimes,setEndTimes,title,setTitle,setContent} = useAddStore()
+    const {weeks,setWeeks,days,setDays,startTimes,setStartTimes,endTimes,setEndTimes,title,setTitle,setContent,remind} = useAddStore()
     const {works,setWorks} = useWorkStore()
     const workIndex = useRef<number>(0)
     if(params.get('index')!==null)workIndex.current = Number(params.get('index'))
@@ -127,7 +127,7 @@ function Add(){
                                 showAddSelectPage(PAGESTATE.TIMES)
                                 }}></div>
                         </div>
-                        <span className='isRemind'>不提醒</span>
+                        <span className='isRemind' onClick={()=>{showAddSelectPage(PAGESTATE.REMINDS)}}>{getRemindCharacter(remind)}</span>
                         <span className='isToBeDone' onClick={() => setIsToBeDone(!isToBeDone)}>{isToBeDone ? '取消待办' : '加入待办'}</span>
                     </div>
                 </div>
