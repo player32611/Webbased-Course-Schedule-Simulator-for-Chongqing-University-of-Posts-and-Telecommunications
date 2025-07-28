@@ -1,0 +1,200 @@
+@HTML-HEIGHT: 100vh;
+@HTML-WIDTH: 100vw;
+@HEAD-HEIGHT: 5vh;
+@BODY-HEIGHT: 75vh;
+@FOOT-HEIGHT: 20vh;
+@BG-COLOR: #FFFFFF;
+@INPUT-COLOR:#EEF5FD;
+
+.Add{
+    height: @HTML-HEIGHT;
+    width: @HTML-WIDTH;
+    .head{
+        height: @HEAD-HEIGHT;
+        width: @HTML-WIDTH;
+        .back{
+            float: left;
+            margin: @HEAD-HEIGHT*0.25;
+            height: @HEAD-HEIGHT*0.5;
+            width: @HEAD-HEIGHT*0.5;
+            background: url('../../icon/返回.png') no-repeat center center;
+            background-size: contain;
+            cursor: pointer;
+        }
+    }
+    .body{
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        height: @BODY-HEIGHT;
+        width: @HTML-WIDTH;
+        background-color: @BG-COLOR;
+        .title-complete{
+            margin: 0 5%;
+            white-space: nowrap;
+            overflow: hidden;
+            &.hidden{
+                display: none;
+            }
+        }
+        .prompt{
+            margin: 0 5%;
+            font-size: 30px;
+            &.hidden{
+                display: none;
+            }
+        }
+        .input{
+            display: flex;
+            justify-content: start;
+            align-items: center;
+            margin: 0 5%;
+            height: @BODY-HEIGHT*0.1;
+            background-color: @INPUT-COLOR;
+            border-radius: 2em;
+            #textarea{
+                padding: 0;
+                margin: 0 5%;
+                height: @BODY-HEIGHT*0.09;
+                width: 90%;
+                border: 0px none @INPUT-COLOR;
+                background-color: @INPUT-COLOR;
+                resize: none;
+                line-height: @BODY-HEIGHT*0.09;
+                font-size: 30px;
+                overflow: hidden;
+                white-space: nowrap;
+                direction: ltr;
+                outline: none;
+                font-family: Arial, Helvetica, sans-serif;
+                caret-color: #788EFB;
+                &:focus-visible{
+                    border: 0px none @INPUT-COLOR;
+                }
+            }
+        }
+        .tags{
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin: 1% 5%;
+            width: 90%;
+            height: auto;
+            .tag{
+                margin: 1% 2.5%;
+                height: @BODY-HEIGHT*0.04;
+                width: 15%;
+                font-size: 15px;
+                text-align: center;
+                line-height: @BODY-HEIGHT*0.04;
+                color: #7F8FB0;
+                background-color: @INPUT-COLOR;
+                border-radius: 2em;
+                cursor: pointer;
+            }
+            &.hidden{
+                display: none;
+            }
+        }
+        .details{
+            display: flex;
+            flex-direction: column;
+            align-items: start;
+            margin: 1% 5%;
+            width: 90%;
+            height: auto;
+            font-size: 14px;
+            &.hidden{
+                display: none;
+            }
+            .week-details{
+                display: flex;
+                flex-wrap: wrap;
+                height: auto;
+                width: 100%;
+                .week-detail{
+                    margin: 1%;
+                    padding: 1% 2%;
+                    height: @BODY-HEIGHT*0.04;
+                    width: auto;
+                    line-height: @BODY-HEIGHT*0.04;
+                    background-color: @INPUT-COLOR;
+                    border-radius: 2em;
+                    cursor: pointer;
+                }
+            }
+            .time-details{
+                flex-wrap: wrap;
+                display: flex;
+                align-items: center;
+                height: auto;
+                width: 100%;
+                .time-detail{
+                    margin: 1%;
+                    padding: 1% 2%;
+                    height: @BODY-HEIGHT*0.04;
+                    width: auto;
+                    line-height: @BODY-HEIGHT*0.04;
+                    background-color: @INPUT-COLOR;
+                    border-radius: 2em;
+                    cursor: pointer;
+                    .closeButton{
+                        position: relative;
+                        bottom: 120%;
+                        left: 95%;
+                        height: @BODY-HEIGHT*0.04*0.5;
+                        width: @BODY-HEIGHT*0.04*0.5;
+                        background-color: #4D47E5;
+                        border-radius: 1em;
+                        .closeIcon{
+                            height: 100%;
+                            width: 100%;
+                            background: url('../../icon/关闭.png') no-repeat center center;
+                            background-size: contain;
+                        }
+                    }
+                }
+                .addTime{
+                    height: @BODY-HEIGHT*0.04;
+                    width: @BODY-HEIGHT*0.04;
+                    background: url('../../icon/加ABBCD8.png') no-repeat center center;
+                    background-size: contain;
+                    cursor: pointer;
+                }
+            }
+            .isRemind,.isToBeDone{
+                margin: 1%;
+                padding: 1% 2%;
+                height: @BODY-HEIGHT*0.04;
+                width: auto;
+                line-height: @BODY-HEIGHT*0.04;
+                background-color: @INPUT-COLOR;
+                border-radius: 2em;
+                cursor: pointer;
+            }
+        }
+    }
+    .foot{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        height: @FOOT-HEIGHT;
+        width: @HTML-WIDTH;
+        .continue{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: @FOOT-HEIGHT*0.4;
+            width: @FOOT-HEIGHT*0.4;
+            background: linear-gradient(to bottom,#5C5DF6,#2A21D2);
+            border-radius: 25%;
+            .button{
+                height: @FOOT-HEIGHT*0.4*0.5;
+                width: @FOOT-HEIGHT*0.4*0.5;
+                background: url('../../icon/右箭头.png') no-repeat center center;
+                background-size: contain;
+                cursor: pointer;
+            }
+        }
+    }
+}

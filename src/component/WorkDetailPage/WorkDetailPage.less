@@ -1,0 +1,92 @@
+@BG-COLOR: #FFFFFF;
+@FONT-COLOR:#202A4D;
+@HTML-HEIGHT: 35vh;
+@HTML-WIDTH: 100vw;
+@TITLE-HEIGHT: 5vh;
+@PLACE-HEIGHT: 3vh;
+@WEEK-HEIGHT: 9vh;
+
+.WorkDetailPage-background{
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: @HTML-WIDTH;
+    &.hidden{
+        z-index: -1;
+    }
+    &.visable{
+        z-index: 1;
+    }
+}
+.WorkDetailPage{
+    display: flex;
+    flex-direction: column;
+    position:fixed;
+    height: @HTML-HEIGHT;
+    left: 0;
+    bottom: 0;
+    width: 96%;
+    padding: 2%;
+    box-shadow: 0px 15px 40px #888888;
+    z-index: 2;
+    background-color: @BG-COLOR;
+    border-top-left-radius: 1em;
+    border-top-right-radius: 1em;
+    transition: bottom 0.5s ease;
+    &.hidden {
+        bottom: -100%;
+    }
+    &.visable {
+        bottom: 0%;
+    }
+    .title{
+        display: flex;
+        justify-content: space-between;
+        height: @TITLE-HEIGHT;
+        line-height: @TITLE-HEIGHT;
+        font-size: 20px;
+        font-weight: 700;
+        color: @FONT-COLOR;
+        .button{
+            display: flex;
+            justify-content: space-between;
+            width: 40% ;
+            height: @TITLE-HEIGHT;
+            .delete{
+                height: @TITLE-HEIGHT;
+                width: 45%;
+                text-align: center;
+                color: #7EA3DA;
+                background-color: #E6F0FC;
+                border-radius: 1em;
+            }
+            .change{
+                height: @TITLE-HEIGHT;
+                width: 45%;
+                text-align: center;
+                color: #FFFFFF;
+                background: linear-gradient(to right, #2A21D2, #5C5DF6);
+                border-radius: 1em;
+            }
+        }
+    }
+    .place{
+        height: @PLACE-HEIGHT;
+        line-height: @PLACE-HEIGHT;
+        color: @FONT-COLOR;
+    }
+    .week,.time,.type {
+        display: flex;
+        justify-content: space-between;
+        height: @WEEK-HEIGHT;
+        line-height: @WEEK-HEIGHT;
+        color: @FONT-COLOR;
+    }
+    .personal-content{
+        display: flex;
+        white-space: normal;
+        word-wrap: break-word;
+        word-break: break-word;
+    }
+}

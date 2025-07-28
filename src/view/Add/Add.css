@@ -1,0 +1,193 @@
+.Add {
+  height: 100vh;
+  width: 100vw;
+}
+.Add .head {
+  height: 5vh;
+  width: 100vw;
+}
+.Add .head .back {
+  float: left;
+  margin: 1.25vh;
+  height: 2.5vh;
+  width: 2.5vh;
+  background: url('../../icon/返回.png') no-repeat center center;
+  background-size: contain;
+  cursor: pointer;
+}
+.Add .body {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  height: 75vh;
+  width: 100vw;
+  background-color: #FFFFFF;
+}
+.Add .body .title-complete {
+  margin: 0 5%;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.Add .body .title-complete.hidden {
+  display: none;
+}
+.Add .body .prompt {
+  margin: 0 5%;
+  font-size: 30px;
+}
+.Add .body .prompt.hidden {
+  display: none;
+}
+.Add .body .input {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  margin: 0 5%;
+  height: 7.5vh;
+  background-color: #EEF5FD;
+  border-radius: 2em;
+}
+.Add .body .input #textarea {
+  padding: 0;
+  margin: 0 5%;
+  height: 6.75vh;
+  width: 90%;
+  border: 0px none #EEF5FD;
+  background-color: #EEF5FD;
+  resize: none;
+  line-height: 6.75vh;
+  font-size: 30px;
+  overflow: hidden;
+  white-space: nowrap;
+  direction: ltr;
+  outline: none;
+  font-family: Arial, Helvetica, sans-serif;
+  caret-color: #788EFB;
+}
+.Add .body .input #textarea:focus-visible {
+  border: 0px none #EEF5FD;
+}
+.Add .body .tags {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin: 1% 5%;
+  width: 90%;
+  height: auto;
+}
+.Add .body .tags .tag {
+  margin: 1% 2.5%;
+  height: 3vh;
+  width: 15%;
+  font-size: 15px;
+  text-align: center;
+  line-height: 3vh;
+  color: #7F8FB0;
+  background-color: #EEF5FD;
+  border-radius: 2em;
+  cursor: pointer;
+}
+.Add .body .tags.hidden {
+  display: none;
+}
+.Add .body .details {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  margin: 1% 5%;
+  width: 90%;
+  height: auto;
+  font-size: 14px;
+}
+.Add .body .details.hidden {
+  display: none;
+}
+.Add .body .details .week-details {
+  display: flex;
+  flex-wrap: wrap;
+  height: auto;
+  width: 100%;
+}
+.Add .body .details .week-details .week-detail {
+  margin: 1%;
+  padding: 1% 2%;
+  height: 3vh;
+  width: auto;
+  line-height: 3vh;
+  background-color: #EEF5FD;
+  border-radius: 2em;
+  cursor: pointer;
+}
+.Add .body .details .time-details {
+  flex-wrap: wrap;
+  display: flex;
+  align-items: center;
+  height: auto;
+  width: 100%;
+}
+.Add .body .details .time-details .time-detail {
+  margin: 1%;
+  padding: 1% 2%;
+  height: 3vh;
+  width: auto;
+  line-height: 3vh;
+  background-color: #EEF5FD;
+  border-radius: 2em;
+  cursor: pointer;
+}
+.Add .body .details .time-details .time-detail .closeButton {
+  position: relative;
+  bottom: 120%;
+  left: 95%;
+  height: 1.5vh;
+  width: 1.5vh;
+  background-color: #4D47E5;
+  border-radius: 1em;
+}
+.Add .body .details .time-details .time-detail .closeButton .closeIcon {
+  height: 100%;
+  width: 100%;
+  background: url('../../icon/关闭.png') no-repeat center center;
+  background-size: contain;
+}
+.Add .body .details .time-details .addTime {
+  height: 3vh;
+  width: 3vh;
+  background: url('../../icon/加ABBCD8.png') no-repeat center center;
+  background-size: contain;
+  cursor: pointer;
+}
+.Add .body .details .isRemind,
+.Add .body .details .isToBeDone {
+  margin: 1%;
+  padding: 1% 2%;
+  height: 3vh;
+  width: auto;
+  line-height: 3vh;
+  background-color: #EEF5FD;
+  border-radius: 2em;
+  cursor: pointer;
+}
+.Add .foot {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 20vh;
+  width: 100vw;
+}
+.Add .foot .continue {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 8vh;
+  width: 8vh;
+  background: linear-gradient(to bottom, #5C5DF6, #2A21D2);
+  border-radius: 25%;
+}
+.Add .foot .continue .button {
+  height: 4vh;
+  width: 4vh;
+  background: url('../../icon/右箭头.png') no-repeat center center;
+  background-size: contain;
+  cursor: pointer;
+}

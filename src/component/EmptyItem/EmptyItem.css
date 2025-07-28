@@ -1,0 +1,24 @@
+.EmptyItem {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+  border-radius: 10px;
+}
+.EmptyItem.active {
+  background-color: #E9ECF1;
+}
+.EmptyItem.hidden {
+  background-color: #fff;
+}
+.EmptyItem .EmptyItem-image {
+  height: 50%;
+  width: 50%;
+  background: url('../../icon/加.png') no-repeat center center;
+  background-size: contain;
+  cursor: pointer;
+}
+.EmptyItem .EmptyItem-image.hidden {
+  display: none;
+}

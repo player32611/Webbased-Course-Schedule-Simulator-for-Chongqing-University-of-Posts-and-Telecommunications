@@ -1,0 +1,27 @@
+@BG-COLOR:#E9ECF1;
+@STATE-HEIGHT:90vh;
+
+.EmptyItem {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+    border-radius: 10px;
+    &.active {
+        background-color: @BG-COLOR;
+    }
+    &.hidden {
+        background-color: #fff;
+    }
+    .EmptyItem-image{
+        height: 50%;
+        width: 50%;
+        background: url('../../icon/加.png') no-repeat center center;
+        background-size: contain;
+        cursor: pointer;
+        &.hidden{
+            display: none;
+        }
+    }
+}

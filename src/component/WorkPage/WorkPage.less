@@ -1,0 +1,123 @@
+@BG-COLOR:#FFFFFF;
+@HTML-HEIGHT:100vh;
+@HEAD-HEIGHT:10vh;
+@BODY-HEIGHT:90vh;
+
+.ClassPage{
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    background-color: @BG-COLOR;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    transition: bottom 0.5s ease;
+    &.hidden{
+        bottom: @HEAD-HEIGHT - @HTML-HEIGHT;
+    }
+    &.visable{
+        bottom: 0%;
+    }
+    &[style*="translateY"] {
+        transition: transform 0.1s ease;
+    }
+    .head{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        height: @HEAD-HEIGHT;
+        width: 100%;
+        touch-action: none;// 确保头部区域可以接收触摸事件
+        cursor: pointer;
+        .head-bar{
+            margin: @HEAD-HEIGHT*0.05;
+            height: @HEAD-HEIGHT*0.10;
+            width: 20%;
+            background-color: #E3EDF9;
+            border-radius: 10px;
+        }
+        .head-content{
+            height: @HEAD-HEIGHT*0.85;
+            width: 100%;
+            color: #3B4B6C;
+            text-align: center;
+            line-height: @HEAD-HEIGHT*0.85;
+            &.hidden {
+                display: none;
+            }
+            .week{
+                float: left;
+                height: 100%;
+                font-size: 25px;
+                color: #112C57;
+            }
+            .people{
+                float: right;
+                margin: @HEAD-HEIGHT*0.25 0;
+                height: @HEAD-HEIGHT*0.35;
+                width: @HEAD-HEIGHT*0.35;
+                background: url("../../icon/人数.png") no-repeat;
+                background-size: contain;
+            }
+            .week-navigation{
+                float: right;
+                height: 100%;
+                width: @HEAD-HEIGHT*0.85;
+                &.hidden{ 
+                    display: none;
+                }
+                .back-to-current{
+                    height: 50%;
+                    background: linear-gradient(to right, #2A21D2, #5C5DF6);
+                    color: @BG-COLOR;
+                    border: 0;
+                    border-radius: 2em;
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+    .body{
+        position: relative;
+        width: 100%;
+        height: @BODY-HEIGHT;
+        background-color: @BG-COLOR;
+        .week-indicators {
+            display: flex;
+            justify-content: center;
+            padding: 10px 0;
+            gap: 10px;
+            flex-wrap: wrap;
+    
+            .indicator {
+                padding: 5px 10px;
+                background-color: #E3EDF9;
+                border-radius: 15px;
+                cursor: pointer;
+                font-size: 14px;
+    
+                &.active {
+                    background-color: #3B4B6C;
+                    color: white;
+                }
+            }
+        }
+        .worklist-slider {
+            display: flex;
+            height: 100%; // 减去指示器和边距高度
+            width: 100%;
+            cursor: grab;
+            user-select: none; // 防止滑动时选择文本
+    
+            &.is-sliding {
+                cursor: grabbing;
+            }
+    
+            .worklist-slide {
+                min-width: 100%;
+                height: 100%;
+            }
+        }
+    }
+}
+

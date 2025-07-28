@@ -1,0 +1,29 @@
+@FONT-SIZE:13px;
+
+.WorkItem{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    width: 100%;
+    border-radius: 10px;
+    font-size: @FONT-SIZE;
+    text-align: center;
+    cursor: pointer;
+    .name{
+        margin: 10% 15% 0;
+        height: 50%;
+        width: 70%;
+        display: -webkit-box;
+        line-clamp: 3;
+        -webkit-line-clamp: 3; // 设置显示行数
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    .place{
+        margin: 0 15% 10%;
+        height: auto;
+        width: 70%;
+    }
+}

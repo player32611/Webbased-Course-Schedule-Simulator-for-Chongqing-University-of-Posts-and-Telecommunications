@@ -1,0 +1,113 @@
+.ClassPage {
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  background-color: #FFFFFF;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  transition: bottom 0.5s ease;
+}
+.ClassPage.hidden {
+  bottom: -90vh;
+}
+.ClassPage.visable {
+  bottom: 0%;
+}
+.ClassPage[style*="translateY"] {
+  transition: transform 0.1s ease;
+}
+.ClassPage .head {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 10vh;
+  width: 100%;
+  touch-action: none;
+  cursor: pointer;
+}
+.ClassPage .head .head-bar {
+  margin: 0.5vh;
+  height: 1vh;
+  width: 20%;
+  background-color: #E3EDF9;
+  border-radius: 10px;
+}
+.ClassPage .head .head-content {
+  height: 8.5vh;
+  width: 100%;
+  color: #3B4B6C;
+  text-align: center;
+  line-height: 8.5vh;
+}
+.ClassPage .head .head-content.hidden {
+  display: none;
+}
+.ClassPage .head .head-content .week {
+  float: left;
+  height: 100%;
+  font-size: 25px;
+  color: #112C57;
+}
+.ClassPage .head .head-content .people {
+  float: right;
+  margin: 2.5vh 0;
+  height: 3.5vh;
+  width: 3.5vh;
+  background: url("../../icon/人数.png") no-repeat;
+  background-size: contain;
+}
+.ClassPage .head .head-content .week-navigation {
+  float: right;
+  height: 100%;
+  width: 8.5vh;
+}
+.ClassPage .head .head-content .week-navigation.hidden {
+  display: none;
+}
+.ClassPage .head .head-content .week-navigation .back-to-current {
+  height: 50%;
+  background: linear-gradient(to right, #2A21D2, #5C5DF6);
+  color: #FFFFFF;
+  border: 0;
+  border-radius: 2em;
+  cursor: pointer;
+}
+.ClassPage .body {
+  position: relative;
+  width: 100%;
+  height: 90vh;
+  background-color: #FFFFFF;
+}
+.ClassPage .body .week-indicators {
+  display: flex;
+  justify-content: center;
+  padding: 10px 0;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.ClassPage .body .week-indicators .indicator {
+  padding: 5px 10px;
+  background-color: #E3EDF9;
+  border-radius: 15px;
+  cursor: pointer;
+  font-size: 14px;
+}
+.ClassPage .body .week-indicators .indicator.active {
+  background-color: #3B4B6C;
+  color: white;
+}
+.ClassPage .body .worklist-slider {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  cursor: grab;
+  user-select: none;
+}
+.ClassPage .body .worklist-slider.is-sliding {
+  cursor: grabbing;
+}
+.ClassPage .body .worklist-slider .worklist-slide {
+  min-width: 100%;
+  height: 100%;
+}
