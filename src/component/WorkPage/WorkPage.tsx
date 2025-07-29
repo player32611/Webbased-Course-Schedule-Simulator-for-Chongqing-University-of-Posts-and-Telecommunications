@@ -14,7 +14,7 @@ enum DEPENDS {
 }
 
 const semesterStartDate = new Date('2025-02-24')//开始日期
-const currentWeek = getCurrentWeekNumber(semesterStartDate)  // 计算当前周数
+const currentWeek = getCurrentWeekNumber(semesterStartDate,21)  // 计算当前周数
 const getAllWeeks = () => {
   return ['整学期', ...Array.from({ length: 21 }, (_, i) => `${getWeekCharacter(i+1)}`)];
 }

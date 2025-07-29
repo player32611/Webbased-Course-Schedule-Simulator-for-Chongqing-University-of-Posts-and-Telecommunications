@@ -1,5 +1,18 @@
+@HTML-HEIGHT: 100vh;
+@HTML-WIDTH: 100vw;
+@TIMES-HEIGHT: 5vh ;
+@BG-COLOR: #ffffff;
+
 .App{
-    height: 100vh;
-    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    height: @HTML-HEIGHT;
+    width: @HTML-WIDTH;
     background-color: pink;
+    .times{
+        height: @TIMES-HEIGHT;
+        width: @HTML-WIDTH;
+        background-color: @BG-COLOR;
+        color: #6D7484;
+    }
 }

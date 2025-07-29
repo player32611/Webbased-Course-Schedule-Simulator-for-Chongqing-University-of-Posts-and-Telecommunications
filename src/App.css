@@ -1,5 +1,13 @@
 .App {
+  display: flex;
+  flex-direction: column;
   height: 100vh;
   width: 100vw;
   background-color: pink;
+}
+.App .times {
+  height: 5vh;
+  width: 100vw;
+  background-color: #ffffff;
+  color: #6D7484;
 }

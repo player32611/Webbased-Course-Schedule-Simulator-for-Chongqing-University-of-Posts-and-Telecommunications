@@ -73,13 +73,13 @@ export function getEndTimeCharacter(endTime:number):string{
   const endTimes = ['08:45','09:40','11:00','11:55','14:45','15:40','17:00','17:55','19:45','20:40','21:35','22:30']
   return endTimes[endTime - 1];
 }
-export function getCurrentWeekNumber(startDate: Date): number {
+export function getCurrentWeekNumber(startDate: Date,length:number): number {
   const now = new Date();
   const start = new Date(startDate);
   const diffTime = Math.abs(now.getTime() - start.getTime());// 计算时间差（毫秒）
   const diffWeeks = Math.floor(diffTime / (7 * 24 * 60 * 60 * 1000));// 转换为周数
   const weekNumber = diffWeeks + 1;  
-  return weekNumber > 21 ? 0 : weekNumber;// 如果超出21周，返回一个特殊值（如0）表示整学期
+  return weekNumber > length ? 0 : weekNumber;// 如果超出23周，返回一个特殊值（如0）表示整学期
 }
 
 export const getWeekDates = (start: Date, weekNumber: number) => {
