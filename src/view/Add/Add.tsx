@@ -117,7 +117,7 @@ function Add(){
                 break
             case MAINSTATE.FINISH:{
                 if (hasTimeConflict()) {
-                    alert('时间冲突！该时间段已有其他日程安排。');
+                    alert('与已有日程冲突，注意合理安排时间。');
                 }
                 const newWeeks:number[] = weeks.includes(0) ? [...Array(22).keys()].slice(1) : weeks;
                 const newWork = {
