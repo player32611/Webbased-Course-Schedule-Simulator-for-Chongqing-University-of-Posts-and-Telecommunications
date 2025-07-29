@@ -84,7 +84,6 @@ function Add(){
             const hasDayOverlap = actualExistingDays.includes(newSchedule.day);
             if (!hasDayOverlap) continue;
             const dayIndex = actualExistingDays.indexOf(newSchedule.day);
-            console.log(dayIndex)
             // 检查时间段是否重叠
                 const existingStartTime = existingWork.startTime[dayIndex];
                 const existingEndTime = existingWork.endTime[dayIndex];
