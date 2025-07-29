@@ -9,6 +9,7 @@
 ## 技术栈
 
 - **React** - 用于构建用户界面的 JavaScript 库
+- **React Compiler** - 自动优化 React 应用程序
 - **Vite** - 快速的前端构建工具
 - **TypeScript** - JavaScript 的超集，提供类型安全
 - **Less** - CSS 预处理器
@@ -26,7 +27,6 @@
 - 支持整学期
 - 支持关联一位同学
 - 日程时间冲突提醒
-- 响应式设计
 
 ## 开发工具配置
 
