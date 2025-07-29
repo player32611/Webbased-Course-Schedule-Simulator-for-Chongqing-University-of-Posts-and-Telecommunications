@@ -53,6 +53,52 @@ function Add(){
         setStartTimes(startTimes.filter((_,i)=>i!==index))
         setEndTimes(endTimes.filter((_,i)=>i!==index))
     }
+    function hasTimeConflict() {
+        // 获取当前要添加的日程信息
+        // 处理周数为0的情况（表示所有周）
+        const actualWeeks = weeks.includes(0) ? [...Array(22).keys()].slice(1) : weeks;
+        const newSchedules = actualWeeks.map(week => 
+            days.map((day, index) => ({
+            week,
+            day,
+            startTime: startTimes[index],
+            endTime: endTimes[index]
+            }))
+        ).flat();
+        // 检查与现有日程的时间冲突
+        for (const newSchedule of newSchedules) {
+            for (const existingWork of works) {
+            // 如果是编辑现有日程，跳过自身
+            if (workIndex.current !== works.length && existingWork.id === works[workIndex.current].id) {
+                continue;
+            }
+            // 处理现有工作的周数，0表示所有周
+            const existingWeeks = Array.isArray(existingWork.week) ? existingWork.week : [existingWork.week];
+            const actualExistingWeeks = existingWeeks.includes(0) ? [...Array(22).keys()].slice(1) : existingWeeks;
+            // 检查周数是否有重叠
+            const hasWeekOverlap = actualExistingWeeks.includes(newSchedule.week);
+            if (!hasWeekOverlap) continue;
+            // 检查日期是否相同
+            const existingDays = Array.isArray(existingWork.day) ? existingWork.day : [existingWork.day];
+            const actualExistingDays = existingDays.includes(0) ? [1, 2, 3, 4, 5, 6, 7] : existingDays;
+            const hasDayOverlap = actualExistingDays.includes(newSchedule.day);
+            if (!hasDayOverlap) continue;
+            const dayIndex = actualExistingDays.indexOf(newSchedule.day);
+            console.log(dayIndex)
+            // 检查时间段是否重叠
+                const existingStartTime = existingWork.startTime[dayIndex];
+                const existingEndTime = existingWork.endTime[dayIndex];
+                // 时间段重叠判断逻辑：任何时间重叠都算冲突
+                if ((newSchedule.startTime >= existingStartTime && newSchedule.startTime < existingEndTime) ||
+                    (newSchedule.endTime >= existingStartTime && newSchedule.endTime <= existingEndTime) ||
+                    (newSchedule.startTime <= existingStartTime && newSchedule.endTime >= existingEndTime) ||
+                    (existingStartTime >= newSchedule.startTime && existingStartTime < newSchedule.endTime)) {
+                return true; // 发现时间冲突
+                }
+            }
+        }
+    return false; // 没有时间冲突
+    }
     function submit(){
         switch(state){
             case MAINSTATE.TITLE:
@@ -70,8 +116,10 @@ function Add(){
                 if(titleCompleteRef.current)titleCompleteRef.current.innerHTML = title
                 break
             case MAINSTATE.FINISH:{
-                let newWeeks:number[] = []
-                if(weeks.includes(0))newWeeks = [...Array(22).keys()].slice(1)
+                if (hasTimeConflict()) {
+                    alert('时间冲突！该时间段已有其他日程安排。');
+                }
+                const newWeeks:number[] = weeks.includes(0) ? [...Array(22).keys()].slice(1) : weeks;
                 const newWork = {
                     id: workIndex.current !== works.length ? works[workIndex.current].id : Date.now(), // 保留原ID或生成新ID
                     name: title,
@@ -90,8 +138,9 @@ function Add(){
                 } else {
                     setWorks([...works, newWork]);
                 }
-                navigate('/');}
+                navigate('/');
                 break
+            }
         }
     }
     return (
