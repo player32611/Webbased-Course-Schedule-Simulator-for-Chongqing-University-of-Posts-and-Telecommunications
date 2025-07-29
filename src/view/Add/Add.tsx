@@ -108,22 +108,21 @@ function Add(){
                     <div className={`details ${state === 2 ? 'active' : 'hidden'}`}>
                         <div className='week-details'>
                         {weeks.map((week,index)=>(
-                            <div className='week-detail' key={index} onClick={()=>showAddSelectPage(PAGESTATE.WEEKS)}>{getWeekCharacter(week)}</div>
+                            <div className='week-detail' key={week.toString()+'-'+index.toString()} onClick={()=>showAddSelectPage(PAGESTATE.WEEKS)}>{getWeekCharacter(week)}</div>
                          ))}
                         </div>
                         <div className='time-details'>
-                            {days.map((day, index) => (
-                                <>
-                                    <div className='time-detail' key={index} onClick={()=>{
-                                            setPageIndex(index)
-                                            showAddSelectPage(PAGESTATE.TIMES)
-                                        }}>{getTimeCharacters(day,startTimes[index],endTimes[index])}
-                                        <div className='closeButton' onClick={(e)=>{
-                                            e.stopPropagation()
-                                            deleteTime(index)
-                                        }}><div className='closeIcon'></div></div>
-                                    </div>
-                                </>
+                            {days.map((day, index) => (        
+                                <div className='time-detail' key={day.toString()+'-'+index.toString()} onClick={()=>{
+                                        setPageIndex(index)
+                                        showAddSelectPage(PAGESTATE.TIMES)
+                                    }}>{getTimeCharacters(day,startTimes[index],endTimes[index])}
+                                    <div className='closeButton' onClick={(e)=>{
+                                        e.stopPropagation()
+                                        deleteTime(index)
+                                    }}><div className='closeIcon'></div></div>
+                                </div>
+                                
                              ))}
                              <div className='addTime' onClick={() => {
                                 setPageIndex(days.length)
