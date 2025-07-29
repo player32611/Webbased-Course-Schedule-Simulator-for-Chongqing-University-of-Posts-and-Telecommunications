@@ -118,7 +118,10 @@ function Add(){
                                             setPageIndex(index)
                                             showAddSelectPage(PAGESTATE.TIMES)
                                         }}>{getTimeCharacters(day,startTimes[index],endTimes[index])}
-                                        <div className='closeButton' onClick={()=>deleteTime(index)}><div className='closeIcon'></div></div>
+                                        <div className='closeButton' onClick={(e)=>{
+                                            e.stopPropagation()
+                                            deleteTime(index)
+                                        }}><div className='closeIcon'></div></div>
                                     </div>
                                 </>
                              ))}
