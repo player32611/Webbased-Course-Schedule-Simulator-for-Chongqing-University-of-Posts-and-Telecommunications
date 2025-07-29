@@ -74,7 +74,7 @@ export function getEndTimeCharacter(endTime:number):string{
   return endTimes[endTime - 1];
 }
 export function getCurrentWeekNumber(startDate: Date,length:number): number {
-  const now = new Date();
+  const now = new Date();//获取当前日期
   const start = new Date(startDate);
   const diffTime = Math.abs(now.getTime() - start.getTime());// 计算时间差（毫秒）
   const diffWeeks = Math.floor(diffTime / (7 * 24 * 60 * 60 * 1000));// 转换为周数
