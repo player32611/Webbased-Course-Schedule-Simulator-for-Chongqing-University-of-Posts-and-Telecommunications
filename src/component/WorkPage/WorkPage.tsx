@@ -44,7 +44,10 @@ function ClassPage() {
     goToCurrentWeek()
     setIsActive(false)
     setOthersIsActive(false)
-  }, [setIsActive,setOthersIsActive])// 组件挂载时自动跳转到当前周
+    if (isHidden) {
+    setVerticalTranslateY(0);
+    }
+  }, [setIsActive,setOthersIsActive,isHidden])// 组件挂载时自动跳转到当前周
   const isTouchInHead = (target: EventTarget | null) => {
     return target instanceof Element && headRef.current?.contains(target);
   }
