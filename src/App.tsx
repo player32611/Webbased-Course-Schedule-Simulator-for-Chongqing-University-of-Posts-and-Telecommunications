@@ -7,7 +7,7 @@ import useOthersStore from './store/othersStore'
 import { getCurrentWeekNumber,getDayCharacter } from './utils/utils'
 
 const semesterStartDate = new Date('2025-02-24')
-const currentWeek = getCurrentWeekNumber(semesterStartDate,21) 
+const currentWeek = getCurrentWeekNumber(semesterStartDate,23) 
 
 function getWeekCharacter(num: number): string {
   const weeks = [
