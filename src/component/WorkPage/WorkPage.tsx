@@ -158,7 +158,7 @@ function ClassPage() {
         <div className='head' ref={headRef}>
           <div className='head-bar'></div>
           <div className={`head-content ${isHidden ? 'visable' : 'hidden'}`}>
-            <div>123</div>
+            <div>享受假期吧 ~</div>
           </div>
           <div className={`head-content ${isHidden ? 'hidden' : 'visable'}`}>
             <div className='week'>{getWeekCharacter(currentSlide)}</div>
